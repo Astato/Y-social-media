@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="40" height="40" viewBox="0 0 30 30" xml:space="preserve">
+	<g transform="matrix(0.1 0 0 0.1 14.74 16.01)"  >
+		<g>
+			<g transform="matrix(1.35 0 0 1.33 14.38 11.46)"  >
+				<path style="stroke: rgb(255,255,255); stroke-width: 12;" transform=" translate(-92.41, -386.21)" d="M 68.62068965517241 394.4827586206896 L 138.2758620689655 322.7586206896551 L 169.99999999999997 322.7586206896551 L 45.172413793103445 449.6551724137931 L 14.82758620689655 448.96551724137925 L 68.62068965517241 394.4827586206896" stroke-linecap="round" />
+			</g>
+			<g transform="matrix(1 0 0 1 -33.6 -35.54)"  >
+				<path style="stroke: rgb(255,255,255); stroke-width: 23;"  transform=" translate(-334.5, -269.33)" d="M 357.3333333333333 307 L 281.3333333333333 232.33333333333331 L 302.3333333333333 231.66666666666666 L 367.66666666666663 297.3333333333333 L 357.3333333333333 307" stroke-linecap="round" />
+			</g>
+		</g>
+	</g>
+</svg>

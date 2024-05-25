@@ -1,14 +1,28 @@
 {
   "name": "social-media",
-  "version": "0.1.0",
+  "version": "0.9",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.18",
+    "@pqina/pintura": "^8.69.0",
+    "@pqina/react-pintura": "^9.0.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.0",
+    "compressorjs": "^1.2.1",
+    "date-fns": "^2.30.0",
+    "dompurify": "^3.0.6",
+    "emoji-picker-react": "^4.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-router-dom": "^6.18.0",
+    "sass": "^1.77.2",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -34,5 +48,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "react-scripts": "^5.0.1"
   }
 }
