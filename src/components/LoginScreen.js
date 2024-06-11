@@ -430,7 +430,7 @@ const LoginScreen = ({ setUser }) => {
               setSignup(false);
             }}
           />
-          <form id="signup-form">
+          <form onSubmit={(e) => e.preventDefault()} id="signup-form">
             {signup ? (
               <div>
                 <p

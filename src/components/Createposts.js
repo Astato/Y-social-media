@@ -226,7 +226,6 @@ const CreatePosts = ({
           const updatedPost = response.data;
           updatedPost.creator = postCreator;
           updatedPost.media = postMedia;
-          console.log(postMedia);
           setTextareaContent("");
 
           navigate(`/${postCreator.username}/post/${post_id}`);
@@ -411,7 +410,6 @@ const CreatePosts = ({
     } else if (hashtags.indexOf(value) === -1 && searchType === "hashtag") {
       setSearchType("");
       setHashtags([...hashtags, value]);
-      console.log(hashtags);
     } else return;
   };
 

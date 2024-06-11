@@ -126,7 +126,6 @@ const Followers = ({
     }
 
     const users = data.map((element) => {
-      console.log(element);
       return (
         <div
           key={element._id}

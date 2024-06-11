@@ -476,6 +476,7 @@ const Post = ({
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [currentPostHasQuote, setCurrentPostHasQuote] = useState(true);
+  const [currentTab, setCurrentTab] = useState(onlyFollowingPosts);
   const [fetchedPosts, setFetchedPosts] = useState(false);
   const postContentRef = useRef(null);
 
@@ -496,7 +497,7 @@ const Post = ({
     }
   }
 
-  async function getLatestsPosts(onlyFollowing, hashtag) {
+  async function getLatestsPosts(onlyFollowing, hashtag, tabChanged) {
     const postsKeyName =
       onlyFollowingPosts !== "explore" ? "onlyFollowingPostsData" : "postsData";
     const postCountKey =
@@ -516,7 +517,7 @@ const Post = ({
       if (
         response.status === 200 &&
         response.data.posts.length > 0 &&
-        !postsData
+        (tabChanged || !postsData)
       ) {
         setPostsData(response.data.posts); /// get actual posts
         setPostsCount(response.data.documentsCount); /// get total applicable post count
@@ -703,12 +704,12 @@ const Post = ({
       } else {
         setPostsData("");
         setIsLoading(true);
-        getLatestsPosts(false, false);
+        getLatestsPosts(false, false, true);
       }
     } else if (
       !userInteractedPosts &&
       !openPost &&
-      onlyFollowingPosts > 0 &&
+      onlyFollowingPosts >= 0 &&
       !hashtag
     ) {
       if (
@@ -720,10 +721,10 @@ const Post = ({
       } else {
         setPostsData("");
         setIsLoading(true);
-        getLatestsPosts(true, false);
+        getLatestsPosts(true, false, true);
       }
     }
-  }, [userInteractedPosts, openPost, onlyFollowingPosts, hashtag, updatePosts]);
+  }, [userInteractedPosts, openPost, currentTab, hashtag, updatePosts]);
 
   if (isLoading) {
     return (
@@ -869,7 +870,7 @@ const Post = ({
     return (
       <div
         className={quote ? "quote-post" : "post-item"}
-        // key={quote ? `quote-post${_id}+${Math.random()}` : _id}
+        key={quote ? `quote-post${_id}+${Math.random()}` : _id}
       >
         <div
           id="errormessage-container"

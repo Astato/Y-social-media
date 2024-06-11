@@ -113,7 +113,6 @@ const Messages = ({ user }) => {
       const response = await axios.get(
         "http://localhost:5000/social/get-private-messages?target=" + target
       );
-      console.log(response);
       if (response.data.length > 0 && response.status === 200) {
         setMessageReceiver(response.data[0].participants[0]);
         return setOpenChat(response.data[0]);

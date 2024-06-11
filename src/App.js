@@ -112,8 +112,9 @@ function App() {
   }, [user]);
 
   const settingsPageStyling = {
-    display: "grid",
-    gridTemplateColumns: "916px",
+    display: "flex",
+    width: "60%",
+    // gridTemplateColumns: "916px",
   };
 
   if (isLoading) {

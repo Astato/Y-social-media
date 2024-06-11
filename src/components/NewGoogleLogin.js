@@ -50,7 +50,6 @@ const NewGoogleLogin = ({ user, setUser }) => {
           `http://localhost:5000/social/common-account-changes?username=${finalUsername}&&date_of_birth=${IsoDate}`
         );
         if (response.status === 200) {
-          console.log(response);
           setUser(response.data);
           navigate("/Profile");
         }

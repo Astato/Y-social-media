@@ -19,16 +19,13 @@ const Rightsidebar = ({ setThirdPartyUser, setHashTagFilter }) => {
 
   const handleUserSearch = async (e) => {
     const input = DOMPurify.sanitize(e.target.value);
-    console.log(input);
     if (input.length >= 3) {
       try {
         const search = await axios.get(
           "http://localhost:5000/social/search?type=all&&searchValue=" + input
         );
         if (search.status === 200) {
-          console.log(search);
           if (search.data && search.data.length > 0) {
-            console.log(search.data);
             setResultsContainerHeight(4.5 * search.data.length);
             return setSearchResults(search.data);
           }
@@ -177,11 +174,11 @@ const Rightsidebar = ({ setThirdPartyUser, setHashTagFilter }) => {
         </p>
         <div>
           {trending &&
-            trending.map((hashtag) => {
+            trending.map((hashtag, index) => {
               return (
                 <div
                   className="trending-item"
-                  key={hashtag.__id}
+                  key={hashtag.__id + index}
                   onClick={() => handleGoToHashtag(hashtag.hashtag)}
                 >
                   <p style={{ fontWeight: "900" }}>{hashtag.hashtag}</p>

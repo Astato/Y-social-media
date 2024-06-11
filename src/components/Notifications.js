@@ -125,7 +125,6 @@ const Notifications = ({ setUser, setOpenPost, user, setThirdPartyUser }) => {
   };
 
   const handleOpenProfile = async (clickedUser_id) => {
-    console.log(clickedUser_id);
     try {
       const getUser = await axios.get(
         `http://localhost:5000/social/getProfile?userID=${clickedUser_id}`

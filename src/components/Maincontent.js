@@ -63,6 +63,10 @@ const Maincontent = ({
   }, [showNewPostsNotification]);
 
   useEffect(() => {
+    setSelectedTab(selectedTab);
+  }, [selectedTab]);
+
+  useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((element) => {
         if (element.isIntersecting) {

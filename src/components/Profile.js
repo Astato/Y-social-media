@@ -626,10 +626,9 @@ const Profile = ({
       </div>
       <div id="profile-page">
         <div
+          id="header-image"
           style={{
             width: "100%",
-            height: "200px",
-            backgroundColor: "gray",
             backgroundImage: user.header_img ? `url(${user.header_img})` : null,
           }}
         ></div>
@@ -687,11 +686,12 @@ const Profile = ({
             {user.username}
           </p>
           <p style={{ margin: "0", color: "gray", fontSize: "14px" }}>
-            Joined on
+            Joined on{" "}
             {thirdPartyProfile
               ? new Date(thirdPartyProfile.joined_date).toLocaleDateString()
               : new Date(user.joined_date).toLocaleDateString()}
           </p>
+          <p style={{ lineBreak: "anywhere" }}> Bio: {user.bio}</p>
           <div style={{ display: "flex", gap: "1rem", color: "gray" }}>
             <Link
               to={

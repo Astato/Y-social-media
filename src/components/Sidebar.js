@@ -29,7 +29,6 @@ const Sidebar = ({
     try {
       const logout = await axios.get("http://localhost:5000/social/logout");
       if (logout.status === 200) {
-        console.log(logout);
         return (window.location.href = "/");
       }
     } catch (error) {

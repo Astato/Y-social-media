@@ -199,7 +199,6 @@ const Settings = ({ user }) => {
     const sanitize = DOMPurify.sanitize(e.target.value);
     setNewUsername(sanitize);
     if (sanitize.length <= 3) {
-      console.log(true);
       usernameInputRef.current.focus();
       return (usernameInputRef.current.style.border =
         "solid 1px rgba(128, 128, 128, 0.4)");
@@ -527,7 +526,7 @@ const Settings = ({ user }) => {
                     />
                   </div>
                   {expandTab.email ? (
-                    <form className="expanded-tab">
+                    <div className="expanded-tab">
                       <p>Change Email</p>
                       <input
                         className="input-style"
@@ -560,7 +559,7 @@ const Settings = ({ user }) => {
                       >
                         Change
                       </button>
-                    </form>
+                    </div>
                   ) : null}
                 </div>
                 <div
