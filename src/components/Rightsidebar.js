@@ -3,19 +3,16 @@ import { ReactComponent as SearchLogo } from "../icons/search_icon.svg";
 import defaultProfileImage from "../icons/profile-default.jpg";
 import axios from "axios";
 import DOMPurify from "dompurify";
-import { useNavigate } from "react-router-dom";
 
-const Rightsidebar = ({ setThirdPartyUser, setHashTagFilter }) => {
+const Rightsidebar = () => {
   const [showSearchBox, setShowSearchBox] = useState("none");
   const [fillColor, setFillColor] = useState("white");
-  const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState("");
   const [resultsContainerHeight, setResultsContainerHeight] = useState(0);
   const [trending, setTrending] = useState("");
   const [shouldBlur, setShouldBlur] = useState(true);
   const inputRef = useRef(null);
   const userFoundContainerRef = useRef(null);
-  const navigate = useNavigate();
 
   const handleUserSearch = async (e) => {
     const input = DOMPurify.sanitize(e.target.value);
@@ -137,10 +134,10 @@ const Rightsidebar = ({ setThirdPartyUser, setHashTagFilter }) => {
           style={{ display: showSearchBox, height: "auto" }}
         >
           {searchResults ? (
-            searchResults.map((element) => {
+            searchResults.map((element, index) => {
               return (
                 <div
-                  key={element._id}
+                  key={element._id || index}
                   ref={userFoundContainerRef}
                   className="searchbar-results"
                   onClick={() => {
@@ -178,7 +175,7 @@ const Rightsidebar = ({ setThirdPartyUser, setHashTagFilter }) => {
               return (
                 <div
                   className="trending-item"
-                  key={hashtag.__id + index}
+                  key={hashtag._id}
                   onClick={() => handleGoToHashtag(hashtag.hashtag)}
                 >
                   <p style={{ fontWeight: "900" }}>{hashtag.hashtag}</p>

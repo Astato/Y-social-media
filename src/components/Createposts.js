@@ -2,7 +2,6 @@ import { ReactComponent as ImageIcon } from "../icons/image_icon.svg";
 import { ReactComponent as GifIcon } from "../icons/gif_icon.svg";
 import { ReactComponent as PollIcon } from "../icons/ballot_icon.svg";
 import { ReactComponent as EmojiIcon } from "../icons/emoji_icon.svg";
-import { ReactComponent as LocationIcon } from "../icons/location_icon.svg";
 import { ReactComponent as SearchLogo } from "../icons/search_icon.svg";
 import { ReactComponent as CloseIcon } from "../icons/close_icon.svg";
 import EmojiPicker from "emoji-picker-react";
@@ -10,7 +9,7 @@ import Post from "./Posts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import defaultProfileImage from "../icons/profile-default.jpg";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import DOMPurify from "dompurify";
 import { socket } from "../socket";
 
@@ -34,7 +33,6 @@ const CreatePosts = ({
   const textareaRef = useRef();
   const [showErrorMessage, setShowErrorMessage] = useState("none");
   const [pollChoice, setPollChoice] = useState(2);
-  const [textareaRows, setTextareaRows] = useState(1);
   const [textareaContent, setTextareaContent] = useState("");
   const [pollForm, setPollForm] = useState("");
   const [pollContent, setPollContent] = useState({ duration: "6 Hours" });
@@ -502,7 +500,7 @@ const CreatePosts = ({
         </div>
         {uploadedImage && (
           <div className="post-media-container" style={{ maxWidth: "90%" }}>
-            <img src={URL.createObjectURL(uploadedImage)} />
+            <img src={URL.createObjectURL(uploadedImage)} alt="" />
             <button
               className="white-button"
               onClick={() => {
@@ -738,15 +736,11 @@ const CreatePosts = ({
               />
               <p className="tooltip">Emoji</p>
             </div>
-            {/* <div>
-              <LocationIcon className="create-action" />
-              <p className="tooltip">Location</p>
-            </div> */}
           </div>
-          {showEmojiPicker && ( /// EmojiPicker causes performance issues if always rendered on load on every Post
+          {showEmojiPicker && (
             <div
               id="postcreator-emoji-picker"
-              style={{ display: showEmojiPicker ? "flex" : "none" }} /// to close the component just hide it
+              style={{ display: showEmojiPicker ? "flex" : "none" }}
             >
               <EmojiPicker
                 theme="dark"
@@ -796,7 +790,6 @@ const CreatePosts = ({
                 </p>
               </div>
               {gifData.map((gif) => {
-                ///GIFCOMPONENT
                 return (
                   <div
                     key={gif.id}
@@ -823,8 +816,11 @@ const CreatePosts = ({
             style={{
               marginRight: "1rem",
               marginBottom: "9px",
-              marginLeft: showEmojiPicker ? "-6rem" : "",
-              marginLeft: selectedGif && showGifs ? "-18rem" : "",
+              marginLeft: showEmojiPicker
+                ? "-6rem"
+                : selectedGif && showGifs
+                ? "-18rem"
+                : "",
             }}
           >
             Post

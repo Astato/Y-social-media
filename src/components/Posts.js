@@ -25,7 +25,7 @@ function abbreviateNumber(number, decPlaces) {
     var size = Math.pow(10, (i + 1) * 3);
     if (size <= number) {
       number = Math.round((number * decPlaces) / size) / decPlaces;
-      if (number == 1000 && i < abbrev.length - 1) {
+      if (number === 1000 && i < abbrev.length - 1) {
         number = 1;
         i++;
       }
@@ -42,10 +42,10 @@ const Repost = ({ post_id, repostsCount, user, setUser }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
-    if (user && user.pósts && user.posts.indexOf(post_id) !== -1) {
+    if (user && user.posts.length >= 0 && user.posts.indexOf(post_id) >= 0) {
       setRepost(true);
     }
-  });
+  }, [post_id]);
 
   const handleClick = async () => {
     try {
@@ -139,6 +139,7 @@ const ReplyDialog = ({
             <div>
               <img
                 src={postCreatorProfileImage || profileDefaultImage}
+                alt="profile"
                 style={{
                   width: "35px",
                   display: "flex",
@@ -212,7 +213,7 @@ const Like = ({ post_id, likesCount, user, setUser }) => {
     if (user && user.likes && user.likes.indexOf(post_id) !== -1) {
       setLike(true);
     }
-  });
+  }, [user, post_id]);
 
   const handleClick = async () => {
     if (!like) {
@@ -275,7 +276,13 @@ const Like = ({ post_id, likesCount, user, setUser }) => {
           }}
         />
       </div>
-      <p>{abbreviateNumber(postLikes, 0)}</p>
+      <p>
+        {postLikes < 0
+          ? 0
+          : like
+          ? abbreviateNumber(postLikes + 1, 0)
+          : abbreviateNumber(postLikes, 0)}
+      </p>
     </div>
   );
 };

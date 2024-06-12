@@ -16,8 +16,6 @@ const Messages = ({ user }) => {
   const [messageReceiver, setMessageReceiver] = useState("");
   const [messageContent, setMessageContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(true);
-  //  const [openChatMessageContent, setOpenChatMessageContent] = useState("");
-  //  const [showOpenChatEmojiPicker, setShowEmojiPicker] = useState(true);
   const [conversationsPreview, setConversationsPreview] = useState("");
   const [confirmationMessage, setConfirmationMessage] =
     useState("Message Sent");
@@ -217,6 +215,7 @@ const Messages = ({ user }) => {
             <img
               style={{ width: "40px", height: "40px", borderRadius: "100%" }}
               src={messageReceiver.profile_img || defaultProfileImage}
+              alt={""}
             />
             <div style={{ diplay: "none", marginLeft: "1rem" }}>
               <p>
@@ -258,7 +257,7 @@ const Messages = ({ user }) => {
                   className="followers-following-userlist"
                   onClick={() => handleSetReciever(element)}
                 >
-                  <img src={defaultProfileImage} />
+                  <img src={defaultProfileImage} alt="" />
                   <div
                     style={{
                       display: "flex",
@@ -405,8 +404,7 @@ const Messages = ({ user }) => {
                     _id,
                   } = element.participants[0];
                   const unread = element.unread;
-                  const { message_content, sender, target, sent } =
-                    element.messages[0];
+                  const { message_content, sent } = element.messages[0];
                   return (
                     <div
                       key={element._id}
@@ -421,7 +419,7 @@ const Messages = ({ user }) => {
                           style={{ opacity: 0 }}
                         ></div>
                       )}
-                      <img src={profile_img || defaultProfileImage} />
+                      <img alt="" src={profile_img || defaultProfileImage} />
                       <div style={{ display: "flex" }}>
                         <p className="chat-user">
                           {name} <span>{username}</span>

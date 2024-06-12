@@ -11,9 +11,7 @@ const PostExpand = ({
   setThirdPartyUser,
 }) => {
   const [postReplies, setPostReplies] = useState(null);
-  const [stopPostQuote, setStopPostQuote] = useState(
-    openPost.quote ? false : true
-  );
+  const stopPostQuote = openPost.quote ? false : true;
 
   const getPostReplies = async () => {
     try {

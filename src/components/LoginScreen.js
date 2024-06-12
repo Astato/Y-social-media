@@ -29,10 +29,6 @@ async function createUser(email, name, password, birthDate, username) {
   }
 }
 
-function randomNumber() {
-  return Math.floor(Math.random() * (999999999 - 1111) + 1111);
-}
-
 const LoginScreen = ({ setUser }) => {
   const [signup, setSignup] = useState(false);
   const [validCreedentials, setValidCreedentials] = useState(false);
@@ -268,7 +264,7 @@ const LoginScreen = ({ setUser }) => {
       }
       const nextInput = inputRefs["input" + (inputNumber + 1)];
       nextInput.current.focus();
-      return (nextInput.current.value = nextInput.current.value);
+      return nextInput.current.value;
     }
   };
 

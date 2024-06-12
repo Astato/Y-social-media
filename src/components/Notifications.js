@@ -3,7 +3,7 @@ import { ReactComponent as CloseIcon } from "../icons/close_icon.svg";
 import { ReactComponent as LoadingAnimation } from "../icons/tube-spinner.svg";
 import profileDefaultImage from "../icons/profile-default.jpg";
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import searchPost from "../utils/searchPost";
 

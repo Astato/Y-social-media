@@ -1,7 +1,4 @@
-import { ReactComponent as SettingsIcon } from "../icons/settings_icon.svg";
 import { ReactComponent as CloseIcon } from "../icons/close_icon.svg";
-import { useLocation } from "react-router-dom";
-import { socket } from "../socket";
 
 import Posts from "./Posts";
 
@@ -22,8 +19,6 @@ const Maincontent = ({
   const targetRef = useRef(null);
   const [selectedTab, setSelectedTab] = useState("explore");
   const [quote, setQuote] = useState(false);
-  // const [showNewPostsNotification, setShowNewPostsNotification] =
-  //   useState(false);
   const [newPostCount, setNewPostCount] = useState(
     Number(sessionStorage.getItem("newPostsCount")) || 0
   );
@@ -33,23 +28,6 @@ const Maincontent = ({
     setShowNewPostsNotification(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  // useEffect(() => {
-  //   const newPostUnread = Number(sessionStorage.getItem("newPostsCount"));
-  //   if (newPostUnread > 0 && newPostCount === 0) {
-  //     setNewPostCount(newPostUnread);
-  //   }
-  //   function onNewPost() {
-  //     setNewPostCount((prev) => prev + 1);
-  //     setShowNewPostsNotification(true);
-  //     sessionStorage.setItem("newPostsCount", newPostCount + 1);
-  //   }
-
-  //   socket.on("New Post Notification", onNewPost);
-  //   return () => {
-  //     socket.off("New Post Notification", onNewPost);
-  //   };
-  // }, []);
 
   const handleLoadPosts = () => {
     sessionStorage.setItem("newPostsCount", 0);
@@ -138,10 +116,6 @@ const Maincontent = ({
             width: "50px",
           }}
         >
-          {/* <SettingsIcon
-            onClick={() => dialogRef.current.showModal()}
-            id="settings-icon"
-          ></SettingsIcon> */}
           <dialog ref={dialogRef} id="new-google-login">
             <div
               style={{

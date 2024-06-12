@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { ReactComponent as OpenIcon } from "../icons/open_icon.svg";
 import { ReactComponent as CloseIcon } from "../icons/close_icon.svg";
 import { ReactComponent as BackIcon } from "../icons/back_icon.svg";
-import Compressor from "compressorjs";
 import "@pqina/pintura/pintura.css";
 import { ReactComponent as LoadingAnimation } from "../icons/tube-spinner.svg";
 
@@ -391,10 +390,6 @@ const Profile = ({
   const [repliesTab, setRepliesTab] = useState(0);
   const [likesTab, setLikesTab] = useState(0);
 
-  const handleSetUpProfile = () => {
-    return setOpenDialog(true);
-  };
-
   const handleGetPosts = async (query, thirdPartyID, skipValue) => {
     try {
       const response = await axios.get(
@@ -652,14 +647,16 @@ const Profile = ({
               <button
                 className="white-button"
                 style={{ height: "fit-content", margin: "1rem" }}
-                onMouseOver={(e) => (
-                  (e.target.style.backgroundColor = "red"),
-                  (e.target.style.color = "white")
-                )}
-                onMouseLeave={(e) => (
-                  (e.target.style.backgroundColor = "white"),
-                  (e.target.style.color = "black")
-                )}
+                onMouseOver={(e) =>
+                  (e.target.style.backgroundColor = "red")(
+                    (e.target.style.color = "white")
+                  )
+                }
+                onMouseLeave={(e) =>
+                  (e.target.style.backgroundColor = "white")(
+                    (e.target.style.color = "black")
+                  )
+                }
                 onClick={() => handleFollowUser("unfollow")}
               >
                 Unfollow

@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { ReactComponent as ChevronIcon } from "../icons/chevron_icon.svg";
-import { formatDistanceToNow } from "date-fns";
 import { ReactComponent as CloseIcon } from "../icons/close_icon.svg";
 
 import axios from "axios";
@@ -10,7 +9,6 @@ const Settings = ({ user }) => {
   const [selected, setSelected] = useState("Account");
   const [expandTab, setExpandTab] = useState({});
   const [propertiesChanges, setPropertiesChanges] = useState({});
-  const [userExtraData, setUserExtraData] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [password, setPassword] = useState("");
   const [userIsAuthorized, setUserIsAuthorized] = useState(false);

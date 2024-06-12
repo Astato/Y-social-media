@@ -132,7 +132,7 @@ const Followers = ({
           className="followers-following-userlist"
           onClick={() => handleOpenProfile(element._id)}
         >
-          <img src={defaultProfileImage} />
+          <img src={defaultProfileImage} alt="profile" />
           <div
             style={{
               display: "flex",

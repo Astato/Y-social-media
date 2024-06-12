@@ -12,7 +12,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.0",
-    "compressorjs": "^1.2.1",
     "date-fns": "^2.30.0",
     "dompurify": "^3.0.6",
     "emoji-picker-react": "^4.6.0",

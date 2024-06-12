@@ -165,11 +165,7 @@ function App() {
                       setShowNewPostsNotification={setShowNewPostsNotification}
                       showNewPostsNotification={showNewPostsNotification}
                     />,
-                    <Rightsidebar
-                      setHashTagFilter={setHashTagFilter}
-                      setThirdPartyUser={setThirdPartyUser}
-                      key="maincontent-rightSidebar"
-                    />,
+                    <Rightsidebar key="maincontent-rightSidebar" />,
                   ]}
                 />
                 <Route
@@ -182,11 +178,7 @@ function App() {
                       isThirdParty={false}
                       setOpenPost={setOpenPost}
                     />,
-                    <Rightsidebar
-                      setHashTagFilter={setHashTagFilter}
-                      setThirdPartyUser={setThirdPartyUser}
-                      key="profile-rightSidebar"
-                    />,
+                    <Rightsidebar key="profile-rightSidebar" />,
                   ]}
                 />
                 <Route
@@ -200,11 +192,7 @@ function App() {
                       setThirdPartyUser={setThirdPartyUser}
                       setOpenPost={setOpenPost}
                     />,
-                    <Rightsidebar
-                      setHashTagFilter={setHashTagFilter}
-                      setThirdPartyUser={setThirdPartyUser}
-                      key="thirparty-profile-rightSidebar"
-                    />,
+                    <Rightsidebar key="thirparty-profile-rightSidebar" />,
                   ]}
                 />
                 <Route
@@ -217,33 +205,21 @@ function App() {
                       setOpenPost={setOpenPost}
                       setThirdPartyUser={setThirdPartyUser}
                     />,
-                    <Rightsidebar
-                      setHashTagFilter={setHashTagFilter}
-                      setThirdPartyUser={setThirdPartyUser}
-                      key="notifications-rightSidebar"
-                    />,
+                    <Rightsidebar key="notifications-rightSidebar" />,
                   ]}
                 />
                 <Route
                   path="/bookmarks"
                   element={[
                     <Bookmarks key="bookmarks" user={user} setUser={setUser} />,
-                    <Rightsidebar
-                      setHashTagFilter={setHashTagFilter}
-                      setThirdPartyUser={setThirdPartyUser}
-                      key="sidebar-bookmarks"
-                    />,
+                    <Rightsidebar key="sidebar-bookmarks" />,
                   ]}
                 />
                 <Route
                   path="/messages"
                   element={[
                     <Messages key="messages" user={user} />,
-                    <Rightsidebar
-                      setHashTagFilter={setHashTagFilter}
-                      setThirdPartyUser={setThirdPartyUser}
-                      key="merssages-sidebar"
-                    />,
+                    <Rightsidebar key="merssages-sidebar" />,
                   ]}
                 />
                 {/* <Route
@@ -268,11 +244,7 @@ setHashTagFilter={setHashTagFilter}
                       setOpenPost={setOpenPost}
                       setThirdPartyUser={setThirdPartyUser}
                     />,
-                    <Rightsidebar
-                      key="postexpand-sidebar"
-                      setThirdPartsetHashTagFilter={setHashTagFilter}
-                      yUser={setThirdPartyUser}
-                    />,
+                    <Rightsidebar key="postexpand-sidebar" />,
                   ]}
                 />
                 <Route
@@ -293,11 +265,7 @@ setHashTagFilter={setHashTagFilter}
                       show={"Followers"}
                       setThirdPartyUser={setThirdPartyUser}
                     />,
-                    <Rightsidebar
-                      setThirdPartsetHashTagFilter={setHashTagFilter}
-                      yUser={setThirdPartyUser}
-                      key="followers-sidebar"
-                    />,
+                    <Rightsidebar key="followers-sidebar" />,
                   ]}
                 />{" "}
                 <Route
@@ -312,11 +280,7 @@ setHashTagFilter={setHashTagFilter}
                       show={"Following"}
                       setThirdPartyUser={setThirdPartyUser}
                     />,
-                    <Rightsidebar
-                      setThirdPartsetHashTagFilter={setHashTagFilter}
-                      yUser={setThirdPartyUser}
-                      key="following-sidebar"
-                    />,
+                    <Rightsidebar key="following-sidebar" />,
                   ]}
                 />
                 <Route
