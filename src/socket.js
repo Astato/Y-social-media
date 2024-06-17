@@ -1,6 +1,5 @@
 import { io } from "socket.io-client";
-import { BASEURL } from "./App";
 
-const URL = BASEURL;
+const URL = "https://hubapi.fly.dev";
 
 export const socket = io(URL);
