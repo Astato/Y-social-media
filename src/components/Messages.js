@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { ReactComponent as CloseIcon } from "../icons/close_icon.svg";
 import { ReactComponent as LoadingAnimation } from "../icons/tube-spinner.svg";
 import { ReactComponent as BackIcon } from "../icons/back_icon.svg";
-
+import { BASEURL } from "../App";
 import defaultProfileImage from "../icons/profile-default.jpg";
 import { ReactComponent as EmojiIcon } from "../icons/emoji_icon.svg";
 import DOMPurify from "dompurify";
@@ -26,7 +26,7 @@ const Messages = ({ user }) => {
   const getFollowingData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/social/following-followers?get=${"following"}&&thirdPartyUserId=${false}`
+        `${BASEURL}/social/following-followers?get=${"following"}&&thirdPartyUserId=${false}`
       );
       if (response.data && response.status === 200) {
         setFollowing(response.data);
@@ -41,7 +41,7 @@ const Messages = ({ user }) => {
   const getConversationsPreview = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/social/get-private-messages?preview=true"
+        BASEURL + "/social/get-private-messages?preview=true"
       );
       if (response.data.length > 0 && response.status === 200) {
         setIsLoading(false);
@@ -91,7 +91,7 @@ const Messages = ({ user }) => {
     };
     const options = {
       method: "POST",
-      url: "http://localhost:5000/social/send-private-message",
+      url: BASEURL + "/social/send-private-message",
       data: message,
       Headers: {
         "Content-Type": "application/json",
@@ -109,7 +109,7 @@ const Messages = ({ user }) => {
   const handleOpenChat = async (target) => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/social/get-private-messages?target=" + target
+        BASEURL + "/social/get-private-messages?target=" + target
       );
       if (response.data.length > 0 && response.status === 200) {
         setMessageReceiver(response.data[0].participants[0]);

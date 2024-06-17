@@ -3,6 +3,7 @@ import { useState } from "react";
 import DOMPurify from "dompurify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASEURL } from "../App";
 const NewGoogleLogin = ({ user, setUser }) => {
   const [dateOfBirth, setDateOFBirth] = useState(null);
   const [username, setUsername] = useState(
@@ -47,7 +48,7 @@ const NewGoogleLogin = ({ user, setUser }) => {
       try {
         finalUsername = DOMPurify.sanitize(finalUsername);
         const response = await axios.get(
-          `http://localhost:5000/social/common-account-changes?username=${finalUsername}&&date_of_birth=${IsoDate}`
+          `${BASEURL}/social/common-account-changes?username=${finalUsername}&&date_of_birth=${IsoDate}`
         );
         if (response.status === 200) {
           setUser(response.data);

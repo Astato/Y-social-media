@@ -15,7 +15,7 @@ import { useEffect, useState, useRef } from "react";
 import { formatDistanceToNow, differenceInHours } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import { BASEURL } from "../App";
 function abbreviateNumber(number, decPlaces) {
   ///code by Jeff B  https://stackoverflow.com/users/179216/jeff-b
   //https://stackoverflow.com/questions/2685911/is-there-a-way-to-round-numbers-into-a-reader-friendly-format-e-g-1-1k
@@ -51,8 +51,7 @@ const Repost = ({ post_id, repostsCount, user, setUser }) => {
     try {
       if (!repost) {
         const response = await axios.get(
-          "http://localhost:5000/social/postinteraction/reposts?postid=" +
-            post_id
+          BASEURL + "/social/postinteraction/reposts?postid=" + post_id
         );
         if (response.status === 200) {
           setPostRepostCount((prev) => prev + 1);
@@ -63,8 +62,7 @@ const Repost = ({ post_id, repostsCount, user, setUser }) => {
       }
       if (repost) {
         const response = await axios.get(
-          "http://localhost:5000/social/postinteraction/un-repost?postid=" +
-            post_id
+          BASEURL + "/social/postinteraction/un-repost?postid=" + post_id
         );
         if (response.status === 200) {
           setPostRepostCount((prev) => prev - 1);
@@ -219,7 +217,7 @@ const Like = ({ post_id, likesCount, user, setUser }) => {
     if (!like) {
       try {
         const response = await axios.get(
-          "http://localhost:5000/social/postinteraction/likes?postid=" + post_id
+          BASEURL + "/social/postinteraction/likes?postid=" + post_id
         );
         if (response.status === 200) {
           setPostLikes((prev) => prev + 1);
@@ -234,8 +232,7 @@ const Like = ({ post_id, likesCount, user, setUser }) => {
     if (like) {
       try {
         const response = await axios.get(
-          "http://localhost:5000/social/postinteraction/un-like?postid=" +
-            post_id
+          BASEURL + "/social/postinteraction/un-like?postid=" + post_id
         );
         if (response.status === 200) {
           setPostLikes((prev) => prev - 1);
@@ -299,7 +296,7 @@ const Bookmark = ({ post_id, user, setUser }) => {
     if (!bookmark) {
       try {
         const response = await axios.get(
-          "http://localhost:5000/social/bookmarks?add=true&&postID=" + post_id
+          BASEURL + "/social/bookmarks?add=true&&postID=" + post_id
         );
         if (response.status === 200) {
           setBookmark(!bookmark);
@@ -313,8 +310,7 @@ const Bookmark = ({ post_id, user, setUser }) => {
     if (bookmark) {
       try {
         const response = await axios.get(
-          "http://localhost:5000/social/bookmarks?remove=true&&postID=" +
-            post_id
+          BASEURL + "/social/bookmarks?remove=true&&postID=" + post_id
         );
         if (response.status === 200) {
           setBookmark(!bookmark);
@@ -374,7 +370,7 @@ const MoreOptionsDropdown = ({
   const handleDeletePost = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/social/delete-post?postID=" + post_id
+        BASEURL + "/social/delete-post?postID=" + post_id
       );
       if (response.status === 200) {
         setUser(response.data);
@@ -391,7 +387,7 @@ const MoreOptionsDropdown = ({
   const handleOpenOp = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/social/find-op?replyID=" + post_id
+        BASEURL + "/social/find-op?replyID=" + post_id
       );
       if (response.status === 200) {
         setOpenPost(
@@ -514,7 +510,7 @@ const Post = ({
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/social?only_following=${onlyFollowing}&&hashtag_filter=${hashtag}&&hashtag_skip=${
+        `${BASEURL}/social?only_following=${onlyFollowing}&&hashtag_filter=${hashtag}&&hashtag_skip=${
           hashtag && postsData ? postsData.length : 0
         }&&fetched_posts=${onlyFollowing ? false : fetchedPosts}`
       );
@@ -607,7 +603,7 @@ const Post = ({
     } else {
       try {
         const response = await axios.get(
-          `http://localhost:5000/social/poll-vote?postID=${postID}&&choice=${choice}&&userID=${user._id}`
+          `${BASEURL}/social/poll-vote?postID=${postID}&&choice=${choice}&&userID=${user._id}`
         );
         if (response.status === 200) {
           if (sessionStorage.getItem("postsData")) {

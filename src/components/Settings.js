@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { ReactComponent as ChevronIcon } from "../icons/chevron_icon.svg";
 import { ReactComponent as CloseIcon } from "../icons/close_icon.svg";
-
+import { BASEURL } from "../App";
 import axios from "axios";
 import DOMPurify from "dompurify";
 
@@ -29,7 +29,7 @@ const Settings = ({ user }) => {
     if (user.googleID) {
       try {
         const response = await axios.get(
-          "http://localhost:5000/social/close-account?google=true"
+          `${BASEURL}/social/close-account?google=true`
         );
         if (response.status === 200) {
           ///re-using the element
@@ -41,11 +41,9 @@ const Settings = ({ user }) => {
       }
     } else if (closeAccountAuthorized) {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/social/close-account"
-        );
+        const response = await axios.get(`${BASEURL}/social/close-account`);
         if (response.status === 200) {
-          await axios.get("http://localhost:5000/social/logout");
+          await axios.get(`${BASEURL}/social/logout`);
         }
       } catch (error) {
         console.log(error);
@@ -59,7 +57,7 @@ const Settings = ({ user }) => {
       const options = {
         method: "POST",
         data: obj,
-        url: "http://localhost:5000/social/user-security-update",
+        url: `${BASEURL}/social/user-security-update`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -111,7 +109,7 @@ const Settings = ({ user }) => {
     const options = {
       method: "POST",
       data: obj,
-      url: "http://localhost:5000/social/authorize-account-changes",
+      url: `${BASEURL}/social/authorize-account-changes`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -170,8 +168,7 @@ const Settings = ({ user }) => {
       try {
         finalUsername = DOMPurify.sanitize(finalUsername);
         const response = await axios.get(
-          "http://localhost:5000/social/common-account-changes?username=" +
-            finalUsername
+          `${BASEURL}/social/common-account-changes?username=` + finalUsername
         );
         if (response.status === 200) {
           window.location.reload();
@@ -204,8 +201,7 @@ const Settings = ({ user }) => {
     if (sanitize.length > 3) {
       try {
         const search = await axios.get(
-          "http://localhost:5000/social/search?type=all&&searchValue=" +
-            sanitize
+          `${BASEURL}/social/search?type=all&&searchValue=` + sanitize
         );
         if (search.status === 200) {
           let formatUsername;

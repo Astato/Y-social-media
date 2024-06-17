@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import searchPost from "../utils/searchPost";
+import { BASEURL } from "../App";
 
 const Notifications = ({ setUser, setOpenPost, user, setThirdPartyUser }) => {
   const [notifications, setNotifications] = useState(null);
@@ -18,7 +19,7 @@ const Notifications = ({ setUser, setOpenPost, user, setThirdPartyUser }) => {
   const getNotifications = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/social/update-notifications",
+        BASEURL + "/social/update-notifications",
         { withCredentials: true }
       );
       if (response.status === 200 && response.data) {
@@ -55,7 +56,7 @@ const Notifications = ({ setUser, setOpenPost, user, setThirdPartyUser }) => {
     }
     try {
       const response = await axios.get(
-        `http://localhost:5000/social?notificationPosts=${postsID}&&notificationUsers=${usersID}`
+        `${BASEURL}/social?notificationPosts=${postsID}&&notificationUsers=${usersID}`
       );
 
       if (response.data) {
@@ -108,7 +109,7 @@ const Notifications = ({ setUser, setOpenPost, user, setThirdPartyUser }) => {
         } else {
           try {
             const getUser = await axios.get(
-              `http://localhost:5000/social/getProfile?userID=${getPost[0].creatorID}`
+              `${BASEURL}/social/getProfile?userID=${getPost[0].creatorID}`
             );
             if (getUser) {
               getPost.creator = getUser.data;
@@ -127,7 +128,7 @@ const Notifications = ({ setUser, setOpenPost, user, setThirdPartyUser }) => {
   const handleOpenProfile = async (clickedUser_id) => {
     try {
       const getUser = await axios.get(
-        `http://localhost:5000/social/getProfile?userID=${clickedUser_id}`
+        `${BASEURL}/social/getProfile?userID=${clickedUser_id}`
       );
       if (getUser) {
         setThirdPartyUser(getUser.data);

@@ -8,13 +8,14 @@ import { useNavigate, Link } from "react-router-dom";
 import DOMPurify from "dompurify";
 import visibility_on from "../icons/visibility.svg";
 import visibility_off from "../icons/visibility_off.svg";
+import { BASEURL } from "../App";
 
 async function createUser(email, name, password, birthDate, username) {
   const joinedDate = new Date().toISOString();
   const obj = { email, name, password, birthDate, joinedDate, username };
   const options = {
     method: "POST",
-    url: "http://localhost:5000/social/create-account",
+    url: BASEURL + "/social/create-account",
     data: obj,
     headers: {
       "Content-Type": "application/json",
@@ -75,7 +76,7 @@ const LoginScreen = ({ setUser }) => {
     passRecoveryDialogRef.current.style.cursor = "wait";
     try {
       const options = {
-        url: "http://localhost:5000/social/generate-restore-code",
+        url: BASEURL + "/social/generate-restore-code",
         method: "POST",
         data: "email=" + emailToRecover,
         headers: {
@@ -105,7 +106,7 @@ const LoginScreen = ({ setUser }) => {
     };
 
     const options = {
-      url: "http://localhost:5000/social/authorize-password-restore",
+      url: BASEURL + "/social/authorize-password-restore",
       method: "POST",
       data: data,
       headers: {
@@ -133,7 +134,7 @@ const LoginScreen = ({ setUser }) => {
     };
 
     const options = {
-      url: "http://localhost:5000/social/password-restore",
+      url: BASEURL + "/social/password-restore",
       method: "POST",
       data: data,
       headers: {
@@ -189,8 +190,7 @@ const LoginScreen = ({ setUser }) => {
     } else {
       try {
         const checkForConflict = await axios.post(
-          "http://localhost:5000/social/create-account?email=" +
-            DOMPurify.sanitize(email)
+          BASEURL + "/social/create-account?email=" + DOMPurify.sanitize(email)
         );
         if (checkForConflict.status === 200) {
           return setValidCreedentials(true);
@@ -205,7 +205,7 @@ const LoginScreen = ({ setUser }) => {
   const checkUsernameAvailability = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/social/create-account?username=" + username
+        BASEURL + "/social/create-account?username=" + username
       );
       if (response.status === 409) {
         return setErrorMessage(response.data.message);
@@ -281,7 +281,7 @@ const LoginScreen = ({ setUser }) => {
     try {
       const options = {
         method: "POST",
-        url: "http://localhost:5000/social/authenticate",
+        url: BASEURL + "/social/authenticate",
         data: obj,
         headers: {
           "Content-Type": "application/json",
@@ -386,7 +386,7 @@ const LoginScreen = ({ setUser }) => {
         <h1>Happening now</h1>
         <div id="login-container">
           <h2>Join Today</h2>
-          <a href="http://localhost:5000/social/oauth2/redirect/google">
+          <a href={BASEURL + "/social/oauth2/redirect/google"}>
             <button className="white-button" style={{ width: "100%" }}>
               Login with Google
             </button>

@@ -1,8 +1,9 @@
 import axios from "axios";
+import { BASEURL } from "../App";
 const searchPost = async (post_id) => {
   try {
     const response = await axios.get(
-      "http://localhost:5000/social/find-op?getPost=" + post_id
+      BASEURL + "/social/find-op?getPost=" + post_id
     );
     if (response.status === 200 && response.data) {
       return response.data;

@@ -3,6 +3,7 @@ import { ReactComponent as BackIcon } from "../icons/back_icon.svg";
 import Post from "./Posts";
 import CreatePosts from "./Createposts";
 import axios from "axios";
+import { BASEURL } from "../App";
 const PostExpand = ({
   openPost,
   user,
@@ -16,7 +17,7 @@ const PostExpand = ({
   const getPostReplies = async () => {
     try {
       const getReplies = await axios.get(
-        "http://localhost:5000/social/post-replies?postID=" + openPost._id
+        BASEURL + "/social/post-replies?postID=" + openPost._id
       );
       if (getReplies.status === 200) {
         return setPostReplies(getReplies.data);

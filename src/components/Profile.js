@@ -4,7 +4,7 @@ import { ReactComponent as CloseIcon } from "../icons/close_icon.svg";
 import { ReactComponent as BackIcon } from "../icons/back_icon.svg";
 import "@pqina/pintura/pintura.css";
 import { ReactComponent as LoadingAnimation } from "../icons/tube-spinner.svg";
-
+import { BASEURL } from "../App";
 import { getEditorDefaults } from "@pqina/pintura";
 import { PinturaEditor } from "@pqina/react-pintura";
 import defaultProfileImage from "../icons/profile-default.jpg";
@@ -88,7 +88,7 @@ const ProfileSetUpDiaalog = ({ openDialog, setOpenDialog, setUser }) => {
     };
     const options = {
       method: "POST",
-      url: "http://localhost:5000/social/update-profile",
+      url: BASEURL + "/social/update-profile",
       data: obj,
       headers: {
         "Content-Type": "application/json",
@@ -393,7 +393,7 @@ const Profile = ({
   const handleGetPosts = async (query, thirdPartyID, skipValue) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/social?${query}=true&&isThirdParty=${thirdPartyID}&&skipCount=${skipValue}`
+        `${BASEURL}/social?${query}=true&&isThirdParty=${thirdPartyID}&&skipCount=${skipValue}`
       );
       if (
         response.status === 200 &&
@@ -498,7 +498,7 @@ const Profile = ({
         // is clicked on a post, I.E client's want to see user profile of the post creator
         // so there's no data besides an id. This is being done in Posts.js on
         /// handleViewUserProfile at line 296
-        "http://localhost:5000/social/getProfile?userID=" + user._id
+        BASEURL + "/social/getProfile?userID=" + user._id
       );
       if (response.data && response.status === 200) {
         const clientID = user.clientID;
@@ -516,7 +516,7 @@ const Profile = ({
   const handleFollowUser = async (action) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/social/follow?followAction=${action}&&interactedUserID=${user._id}`
+        `${BASEURL}/social/follow?followAction=${action}&&interactedUserID=${user._id}`
       );
       if (response.status === 200 && action === "follow") {
         ///adds the client id to the third party user followers profile, so the

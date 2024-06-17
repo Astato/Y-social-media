@@ -12,6 +12,7 @@ import defaultProfileImage from "../icons/profile-default.jpg";
 import { useRef, useState } from "react";
 import DOMPurify from "dompurify";
 import { socket } from "../socket";
+import { BASEURL } from "../App";
 
 // import { ReactComponent as RepostIcon } from "../icons/repost_icon.svg";
 
@@ -101,7 +102,7 @@ const CreatePosts = ({
   async function searchForUsernameandHashtags(value) {
     try {
       const search = await axios.get(
-        `http://localhost:5000/social/search?type=${searchType}&&searchValue=${value}`
+        `${BASEURL}/social/search?type=${searchType}&&searchValue=${value}`
       );
       if (search.status === 200) {
         if (value.length === 5 && search.data.length === 0) {
@@ -209,7 +210,7 @@ const CreatePosts = ({
       };
       const options = {
         method: "POST",
-        url: "http://localhost:5000/social/newpost",
+        url: BASEURL + "/social/newpost",
         data: newPost,
         headers: {
           "Content-Type": "application/json",
@@ -248,7 +249,7 @@ const CreatePosts = ({
       };
       const options = {
         method: "POST",
-        url: "http://localhost:5000/social/newpost",
+        url: BASEURL + "/social/newpost",
         data: newPost,
         headers: {
           "Content-Type": "application/json",

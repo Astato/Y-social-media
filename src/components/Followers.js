@@ -3,7 +3,7 @@ import axios from "axios";
 import defaultProfileImage from "../icons/profile-default.jpg";
 import { ReactComponent as LoadingAnimation } from "../icons/tube-spinner.svg";
 import { useNavigate } from "react-router-dom";
-
+import { BASEURL } from "../App";
 const Followers = ({
   user,
   setUser,
@@ -21,7 +21,7 @@ const Followers = ({
   const handleFollowUser = async (action, interactedUserID) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/social/follow?followAction=${action}&&interactedUserID=${interactedUserID}`
+        `${BASEURL}/social/follow?followAction=${action}&&interactedUserID=${interactedUserID}`
       );
       if (response.status === 200) {
         setUser(response.data);
@@ -36,7 +36,7 @@ const Followers = ({
   const getFollowersData = async (query, thirdPartyUserId) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/social/following-followers?get=${query}&&thirdPartyUserId=${thirdPartyUserId}`
+        `${BASEURL}/social/following-followers?get=${query}&&thirdPartyUserId=${thirdPartyUserId}`
       );
       if (response.data && response.status === 200) {
         query === "following"
@@ -53,7 +53,7 @@ const Followers = ({
   const handleOpenProfile = async (clickedUser_id) => {
     try {
       const getUser = await axios.get(
-        `http://localhost:5000/social/getProfile?userID=${clickedUser_id}`
+        `${BASEURL}/social/getProfile?userID=${clickedUser_id}`
       );
       if (getUser) {
         setThirdPartyUser(getUser.data);

@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
+export const BASEURL = "https://hubapi.fly.dev";
+
 function App() {
   const [user, setUser] = useState("");
   const [openPost, setOpenPost] = useState(false);
@@ -28,7 +30,7 @@ function App() {
     useState(false);
   const checkForSession = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/social/isLogged");
+      const response = await axios.get(`${BASEURL}/social/isLogged`);
       if (response.status === 200) {
         setUser(response.data);
         return setIsLoading(false);
@@ -53,7 +55,7 @@ function App() {
   const searchPost = async (post_id) => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/social/find-op?getPost=" + post_id
+        `${BASEURL}/social/find-op?getPost=` + post_id
       );
       if (response.status === 200 && response.data) {
         return setOpenPost(...response.data);
@@ -66,7 +68,7 @@ function App() {
   const getProfile = async (username) => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/social/getProfile?username=" + username
+        `${BASEURL}/social/getProfile?username=` + username
       );
       if (response.status === 200 && response.data) {
         return setThirdPartyUser(response.data);

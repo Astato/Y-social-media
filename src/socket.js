@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
+import { BASEURL } from "./App";
 
-const URL =
-  process.env.NODE_ENV === "production" ? undefined : "http://localhost:5000";
+const URL = BASEURL;
 
 export const socket = io(URL);

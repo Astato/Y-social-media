@@ -8,7 +8,7 @@ import { ReactComponent as SettingsIcon } from "../icons/settings_icon.svg";
 import axios from "axios";
 import { ReactComponent as Logo } from "../icons/logo.svg";
 import { socket } from "../socket";
-
+import { BASEURL } from "../App";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = ({
@@ -27,7 +27,7 @@ const Sidebar = ({
 
   const handleLogout = async () => {
     try {
-      const logout = await axios.get("http://localhost:5000/social/logout");
+      const logout = await axios.get(`${BASEURL}/social/logout`);
       if (logout.status === 200) {
         return (window.location.href = "/");
       }

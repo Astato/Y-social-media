@@ -3,6 +3,7 @@ import { ReactComponent as SearchLogo } from "../icons/search_icon.svg";
 import defaultProfileImage from "../icons/profile-default.jpg";
 import axios from "axios";
 import DOMPurify from "dompurify";
+import { BASEURL } from "../App";
 
 const Rightsidebar = () => {
   const [showSearchBox, setShowSearchBox] = useState("none");
@@ -19,7 +20,7 @@ const Rightsidebar = () => {
     if (input.length >= 3) {
       try {
         const search = await axios.get(
-          "http://localhost:5000/social/search?type=all&&searchValue=" + input
+          `${BASEURL}/social/search?type=all&&searchValue=` + input
         );
         if (search.status === 200) {
           if (search.data && search.data.length > 0) {
@@ -39,7 +40,7 @@ const Rightsidebar = () => {
   const handleOpenProfile = async (clickedUser_id) => {
     try {
       const getUser = await axios.get(
-        `http://localhost:5000/social/getProfile?userID=${clickedUser_id}`
+        `${BASEURL}/social/getProfile?userID=${clickedUser_id}`
       );
       if (getUser) {
         // setThirdPartyUser(getUser.data);
@@ -54,7 +55,7 @@ const Rightsidebar = () => {
 
   const getTrending = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/social/trending");
+      const response = await axios.get(`${BASEURL}/social/trending`);
       if (response.status === 200) {
         return setTrending(response.data);
       }
