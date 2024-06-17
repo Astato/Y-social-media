@@ -296,7 +296,7 @@ const Bookmark = ({ post_id, user, setUser }) => {
     if (!bookmark) {
       try {
         const response = await axios.get(
-          BASEURL + "/social/bookmarks?add=true&&postID=" + post_id
+          BASEURL + "/social/bookmarks?add=true&postID=" + post_id
         );
         if (response.status === 200) {
           setBookmark(!bookmark);
@@ -310,7 +310,7 @@ const Bookmark = ({ post_id, user, setUser }) => {
     if (bookmark) {
       try {
         const response = await axios.get(
-          BASEURL + "/social/bookmarks?remove=true&&postID=" + post_id
+          BASEURL + "/social/bookmarks?remove=true&postID=" + post_id
         );
         if (response.status === 200) {
           setBookmark(!bookmark);
@@ -510,9 +510,9 @@ const Post = ({
 
     try {
       const response = await axios.get(
-        `${BASEURL}/social?only_following=${onlyFollowing}&&hashtag_filter=${hashtag}&&hashtag_skip=${
+        `${BASEURL}/social?only_following=${onlyFollowing}&hashtag_filter=${hashtag}&hashtag_skip=${
           hashtag && postsData ? postsData.length : 0
-        }&&fetched_posts=${onlyFollowing ? false : fetchedPosts}`
+        }&fetched_posts=${onlyFollowing ? false : fetchedPosts}`
       );
       if (response.status === 200 && response.data.posts.length === 0) {
         return;
@@ -603,7 +603,7 @@ const Post = ({
     } else {
       try {
         const response = await axios.get(
-          `${BASEURL}/social/poll-vote?postID=${postID}&&choice=${choice}&&userID=${user._id}`
+          `${BASEURL}/social/poll-vote?postID=${postID}&choice=${choice}&userID=${user._id}`
         );
         if (response.status === 200) {
           if (sessionStorage.getItem("postsData")) {

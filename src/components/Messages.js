@@ -26,7 +26,7 @@ const Messages = ({ user }) => {
   const getFollowingData = async () => {
     try {
       const response = await axios.get(
-        `${BASEURL}/social/following-followers?get=${"following"}&&thirdPartyUserId=${false}`
+        `${BASEURL}/social/following-followers?get=${"following"}&thirdPartyUserId=${false}`
       );
       if (response.data && response.status === 200) {
         setFollowing(response.data);

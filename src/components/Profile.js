@@ -393,7 +393,7 @@ const Profile = ({
   const handleGetPosts = async (query, thirdPartyID, skipValue) => {
     try {
       const response = await axios.get(
-        `${BASEURL}/social?${query}=true&&isThirdParty=${thirdPartyID}&&skipCount=${skipValue}`
+        `${BASEURL}/social?${query}=true&isThirdParty=${thirdPartyID}&skipCount=${skipValue}`
       );
       if (
         response.status === 200 &&
@@ -516,7 +516,7 @@ const Profile = ({
   const handleFollowUser = async (action) => {
     try {
       const response = await axios.get(
-        `${BASEURL}/social/follow?followAction=${action}&&interactedUserID=${user._id}`
+        `${BASEURL}/social/follow?followAction=${action}&interactedUserID=${user._id}`
       );
       if (response.status === 200 && action === "follow") {
         ///adds the client id to the third party user followers profile, so the

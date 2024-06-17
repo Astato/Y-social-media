@@ -56,7 +56,7 @@ const Notifications = ({ setUser, setOpenPost, user, setThirdPartyUser }) => {
     }
     try {
       const response = await axios.get(
-        `${BASEURL}/social?notificationPosts=${postsID}&&notificationUsers=${usersID}`
+        `${BASEURL}/social?notificationPosts=${postsID}&notificationUsers=${usersID}`
       );
 
       if (response.data) {

@@ -21,7 +21,7 @@ const Followers = ({
   const handleFollowUser = async (action, interactedUserID) => {
     try {
       const response = await axios.get(
-        `${BASEURL}/social/follow?followAction=${action}&&interactedUserID=${interactedUserID}`
+        `${BASEURL}/social/follow?followAction=${action}&interactedUserID=${interactedUserID}`
       );
       if (response.status === 200) {
         setUser(response.data);
@@ -36,7 +36,7 @@ const Followers = ({
   const getFollowersData = async (query, thirdPartyUserId) => {
     try {
       const response = await axios.get(
-        `${BASEURL}/social/following-followers?get=${query}&&thirdPartyUserId=${thirdPartyUserId}`
+        `${BASEURL}/social/following-followers?get=${query}&thirdPartyUserId=${thirdPartyUserId}`
       );
       if (response.data && response.status === 200) {
         query === "following"

@@ -48,7 +48,7 @@ const NewGoogleLogin = ({ user, setUser }) => {
       try {
         finalUsername = DOMPurify.sanitize(finalUsername);
         const response = await axios.get(
-          `${BASEURL}/social/common-account-changes?username=${finalUsername}&&date_of_birth=${IsoDate}`
+          `${BASEURL}/social/common-account-changes?username=${finalUsername}&date_of_birth=${IsoDate}`
         );
         if (response.status === 200) {
           setUser(response.data);
