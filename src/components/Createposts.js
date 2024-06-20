@@ -18,7 +18,6 @@ import { BASEURL } from "../App";
 
 const CreatePosts = ({
   placeholderMessage,
-  charactersCount,
   isReply,
   post_id,
   displayButtons,
@@ -102,7 +101,7 @@ const CreatePosts = ({
   async function searchForUsernameandHashtags(value) {
     try {
       const search = await axios.get(
-        `${BASEURL}/social/search?type=${searchType}&&searchValue=${value}`
+        `${BASEURL}/social/search?type=${searchType}&searchValue=${value}`
       );
       if (search.status === 200) {
         if (value.length === 5 && search.data.length === 0) {

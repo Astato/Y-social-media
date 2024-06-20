@@ -81,7 +81,7 @@ const Notifications = ({ setUser, setOpenPost, user, setThirdPartyUser }) => {
     if (notifications && !posts) {
       getPosts();
     }
-  });
+  }, [notifications, posts]);
 
   function replaceProperties(originalObj, fetchedProperties) {
     for (const obj of originalObj) {

@@ -273,13 +273,7 @@ const Like = ({ post_id, likesCount, user, setUser }) => {
           }}
         />
       </div>
-      <p>
-        {postLikes < 0
-          ? 0
-          : like
-          ? abbreviateNumber(postLikes + 1, 0)
-          : abbreviateNumber(postLikes, 0)}
-      </p>
+      <p>{postLikes <= 0 ? 0 : like}</p>
     </div>
   );
 };
@@ -385,6 +379,9 @@ const MoreOptionsDropdown = ({
   };
 
   const handleOpenOp = async () => {
+    if (!post_id) {
+      return;
+    }
     try {
       const response = await axios.get(
         BASEURL + "/social/find-op?replyID=" + post_id
