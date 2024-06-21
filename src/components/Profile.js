@@ -418,12 +418,27 @@ const Profile = ({
           : setUserPosts((prev) => [...prev, ...response.data]);
         return;
       } else {
-        query === "likes"
-          ? setUserLikedPosts(false)
-          : query === "replies"
-          ? setUserRepliedPosts(false)
-          : setUserPosts(false);
-        return;
+        if (response.data.length === 0) {
+          switch (query) {
+            case "likes":
+              setLikedPostsCount(userLikedPosts.length);
+              break;
+            case "replies":
+              setRepliedPostsCount(userRepliedPosts.length);
+              break;
+            default:
+              setUserPostsCount(userPosts.length);
+              return;
+          }
+          return;
+        } else {
+          query === "likes"
+            ? setUserLikedPosts(false)
+            : query === "replies"
+            ? setUserRepliedPosts(false)
+            : setUserPosts(false);
+          return;
+        }
       }
     } catch (error) {
       console.log(error);
@@ -760,6 +775,8 @@ const Profile = ({
                   user={user}
                   setUser={setUser}
                   setOpenPost={setOpenPost}
+                  isThirdParty={isThirdParty}
+                  isProfile={true}
                 ></Posts>
               ) : (!isThirdParty && user.posts?.length === 0) ||
                 (isThirdParty && thirdPartyProfile.posts?.length === 0) ? (
@@ -777,6 +794,7 @@ const Profile = ({
                   user={user}
                   setUser={setUser}
                   setOpenPost={setOpenPost}
+                  isProfile={true}
                 ></Posts>
               ) : (!isThirdParty && user.likes.length === 0) ||
                 (isThirdParty && thirdPartyProfile.posts.length === 0) ? (
@@ -795,6 +813,7 @@ const Profile = ({
                   user={user}
                   setUser={setUser}
                   setOpenPost={setOpenPost}
+                  isProfile={true}
                 ></Posts>
               ) : (!isThirdParty && user.replies.length === 0) ||
                 (isThirdParty && thirdPartyProfile.posts.length === 0) ? (

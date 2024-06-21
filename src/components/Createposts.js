@@ -58,6 +58,7 @@ const CreatePosts = ({
   const [gifSearchTerm, setGifSearchTerm] = useState("");
   const [gifSearchResult, setGifSearchResult] = useState("");
   const [selectedGif, setSelectedGif] = useState("");
+  const [isPosting, setIsPosting] = useState(false);
   const navigate = useNavigate();
 
   const handleMediaClick = () => {
@@ -225,12 +226,14 @@ const CreatePosts = ({
           updatedPost.creator = postCreator;
           updatedPost.media = postMedia;
           setTextareaContent("");
-
           navigate(`/${postCreator.username}/post/${post_id}`);
+          setIsPosting(false);
           return setOpenPost(updatedPost);
         }
       } catch (error) {
         console.log(error);
+        setIsPosting(false);
+
         return error;
       }
     }
@@ -258,13 +261,20 @@ const CreatePosts = ({
         const post = await axios(options);
         if (post.status === 200) {
           /// since i'ts a new post made by the client, redirect it to the post created.
+          console.log(post, "HERE ");
           setOpenPost(post.data);
+          if (media) {
+            post.data.media = media;
+          }
           navigate(`/${user.username}/post/${post.data._id}`);
+          setIsPosting(false);
           socket.emit("New Post");
           return setTextareaContent("");
         }
       } catch (error) {
         console.log(error);
+        setIsPosting(false);
+
         return error;
       }
     }
@@ -412,7 +422,7 @@ const CreatePosts = ({
   };
 
   return (
-    <div id="create-post">
+    <div id="create-post" style={{ cursor: isPosting ? "wait" : "default" }}>
       <div id="file-size-error" style={{ display: showErrorMessage }}>
         <p>File size is to large! Maximum size allowed is 25MB</p>
         <CloseIcon
@@ -811,8 +821,11 @@ const CreatePosts = ({
           )}
           <button
             className="blue-button"
-            disabled={!textareaContent.length}
-            onClick={handleNewPost}
+            disabled={isPosting || !textareaContent.length}
+            onClick={() => {
+              setIsPosting(true);
+              handleNewPost();
+            }}
             style={{
               marginRight: "1rem",
               marginBottom: "9px",

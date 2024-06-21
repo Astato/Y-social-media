@@ -36,14 +36,24 @@ function abbreviateNumber(number, decPlaces) {
   return number;
 }
 
-const Repost = ({ post_id, repostsCount, user, setUser }) => {
+const Repost = ({ post_id, repostsCount, user, setUser, isThirdParty }) => {
   const [repost, setRepost] = useState(false);
   const [postRepostCount, setPostRepostCount] = useState(repostsCount);
   const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
-    if (user && user.posts.length >= 0 && user.posts.indexOf(post_id) >= 0) {
-      setRepost(true);
+    if (!isThirdParty) {
+      if (
+        user &&
+        user.posts.length >= 0 &&
+        user.reposts.indexOf(post_id) >= 0
+      ) {
+        setRepost(true);
+      }
+    } else {
+      if (user && user.posts.length >= 0 && user.posts.indexOf(post_id) >= 0) {
+        setRepost(true);
+      }
     }
   }, [post_id]);
 
@@ -273,7 +283,7 @@ const Like = ({ post_id, likesCount, user, setUser }) => {
           }}
         />
       </div>
-      <p>{postLikes <= 0 ? 0 : like}</p>
+      <p>{postLikes <= 0 ? 0 : postLikes} </p>
     </div>
   );
 };
@@ -469,6 +479,8 @@ const Post = ({
   updatePosts,
   setThirdPartyUser,
   setUpdatePosts,
+  isThirdParty,
+  isProfile,
 }) => {
   const navigate = useNavigate();
   const [postsData, setPostsData] = useState(null);
@@ -531,7 +543,6 @@ const Post = ({
           await savePostsID(response.data.posts);
         }
         setIsLoading(false);
-
         return postsData;
       } else if (response.status === 200 && response.data.posts.length > 0) {
         /// if load more posts is triggered,
@@ -683,7 +694,7 @@ const Post = ({
       setIsLoading(false);
     }
     if (userInteractedPosts) {
-      ///get replied or liked posts
+      ///get replied or liked posts in profile
       setPostsData(userInteractedPosts);
       setPostsCount(userInteractedPosts.length);
       setIsLoading(false);
@@ -709,11 +720,11 @@ const Post = ({
     } else if (
       !userInteractedPosts &&
       !openPost &&
-      onlyFollowingPosts >= 0 &&
+      onlyFollowingPosts > 0 &&
       !hashtag
     ) {
       if (
-        sessionStorage.getItem("onlyFollowingPostsData") !== null &&
+        sessionStorage.getItem("onlyFollowingPostsData") !== "null" &&
         sessionStorage.length > 0
       ) {
         setPostsData("");
@@ -817,13 +828,14 @@ const Post = ({
 
     const postDate = date ? new Date(date) : false;
     const timeDifference = postDate ? formatDistanceToNow(postDate) : "";
-    let mimeType;
-    if (media && !media.includes("giphy")) {
-      mimeType = media.split(";")[0].split(":")[1];
-    } else if (media && media.includes("giphy")) {
-      mimeType = "GIF";
+    let mimeType = "";
+    if (media !== "Media file not found") {
+      if (media && !media.includes("giphy")) {
+        mimeType = media.split(";")[0].split(":")[1];
+      } else if (media && media.includes("giphy")) {
+        mimeType = "GIF";
+      }
     }
-
     let formattedPostContent = false;
     if (
       (post_content && post_content.includes("@")) ||
@@ -976,13 +988,19 @@ const Post = ({
               )}
             </p>
             <div className="post-media-container">
-              {media && mimeType.match("image") ? <img src={media} /> : null}
-              {media && mimeType.match("video") ? (
+              {media &&
+              media !== "Media file not found" &&
+              mimeType.includes("image") ? (
+                <img src={media} />
+              ) : mimeType.includes("video") ? (
                 <video controls>
                   <source src={media}></source>
                 </video>
+              ) : media && mimeType === "GIF" ? (
+                <img src={media} />
+              ) : media === "Media file not found" ? (
+                <p>Media not found</p>
               ) : null}
-              {media && mimeType === "GIF" ? <img src={media} /> : null}
             </div>
             {poll && (
               <div className="poll-container">
@@ -1176,6 +1194,7 @@ const Post = ({
               repostsCount={reposts}
               user={user}
               setUser={setUser}
+              isThirdParty={isThirdParty}
             />
             <Like
               post_id={_id}
@@ -1184,7 +1203,9 @@ const Post = ({
               setUser={setUser}
             />
             <div
-              style={{ display: post.quote || stopPostQuote ? "none" : "flex" }}
+              style={{
+                display: post.quote || stopPostQuote ? "none" : "flex",
+              }}
               onClick={() => {
                 if (post.quote) {
                   return;
@@ -1223,12 +1244,15 @@ const Post = ({
         initialScrollY={0}
         next={(e) => {
           if (loadMore) {
-            loadMore();
-          } else if (onlyFollowingPosts !== "explore") {
+            const load = loadMore();
+            if (!load) {
+              userInteractedPostsCount = postsData.length;
+            }
+          } else if (onlyFollowingPosts > 0) {
             getLatestsPosts(true, false);
           } else if (hashtag) {
             getLatestsPosts(false, hashtag);
-          } else {
+          } else if (onlyFollowingPosts === "explore") {
             getLatestsPosts(false, false);
           }
         }}
