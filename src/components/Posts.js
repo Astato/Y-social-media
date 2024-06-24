@@ -707,6 +707,7 @@ const Post = ({
       !hashtag
     ) {
       if (
+        sessionStorage.getItem("postsData") !== null &&
         sessionStorage.getItem("postsData") !== "null" &&
         sessionStorage.length > 0
       ) {
@@ -724,6 +725,7 @@ const Post = ({
       !hashtag
     ) {
       if (
+        sessionStorage.getItem("onlyFollowingPostsData") !== null &&
         sessionStorage.getItem("onlyFollowingPostsData") !== "null" &&
         sessionStorage.length > 0
       ) {
@@ -735,7 +737,14 @@ const Post = ({
         getLatestsPosts(true, false, true);
       }
     }
-  }, [userInteractedPosts, openPost, currentTab, hashtag, updatePosts]);
+  }, [
+    userInteractedPosts,
+    onlyFollowingPosts,
+    openPost,
+    currentTab,
+    hashtag,
+    updatePosts,
+  ]);
 
   if (isLoading) {
     return (
@@ -764,7 +773,11 @@ const Post = ({
     );
   }
 
-  if (onlyFollowingPosts > 0 && postsData.length === 0) {
+  console.log(postsData, "HERE");
+  if (
+    onlyFollowingPosts > 0 &&
+    (postsData === null || postsData.length === 0)
+  ) {
     return (
       <div>
         <p
