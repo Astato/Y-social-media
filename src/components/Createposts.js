@@ -261,12 +261,14 @@ const CreatePosts = ({
         const post = await axios(options);
         if (post.status === 200) {
           /// since i'ts a new post made by the client, redirect it to the post created.
-          console.log(post, "HERE ");
           setOpenPost(post.data);
           if (media) {
             post.data.media = media;
           }
           navigate(`/${user.username}/post/${post.data._id}`);
+          if (quote) {
+            window.location.reload();
+          }
           setIsPosting(false);
           socket.emit("New Post");
           return setTextareaContent("");
@@ -576,7 +578,7 @@ const CreatePosts = ({
               className="close-button"
               onClick={() => setQuote(false)}
             />
-            <Post quote={quote} user={user} />
+            <Post quote={quote} user={user} stopPostQuote={true} />
           </div>
         ) : null}
         <div className="search-results">

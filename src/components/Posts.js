@@ -1236,6 +1236,8 @@ const Post = ({
     );
   });
 
+  console.log(openPost);
+
   return (
     <div>
       {mapData}
@@ -1258,7 +1260,7 @@ const Post = ({
         }}
         hasMore={
           //// (loadMore) profile post lazy loading, only when the client is in /Profile (own or thirdparty)
-          openPost /// expannded posts
+          openPost /// opened / expanded posts
             ? false
             : loadMore || userInteractedPostsCount
             ? postsData.length === userInteractedPostsCount
@@ -1269,9 +1271,7 @@ const Post = ({
             : true
         }
         loader={
-          stopPostQuote ? (
-            ""
-          ) : (
+          stopPostQuote ? null : (
             <div className="loading-screen">
               <div style={{ width: "5rem" }}>
                 <LoadingAnimation></LoadingAnimation>

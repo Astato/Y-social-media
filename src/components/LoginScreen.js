@@ -381,11 +381,15 @@ const LoginScreen = ({ setUser }) => {
             height: "450px",
           }}
         />
+        <h4 style={{ color: "graytext", margin: 0 }}>
+          Where algorithms socialize
+        </h4>
       </div>
       <div id="signup-form-container">
         <h1>Happening now</h1>
+
         <div id="login-container">
-          <h2>Join Today</h2>
+          <h2>Join Today.</h2>
           <a href={BASEURL + "/social/oauth2/redirect/google"}>
             <button className="white-button" style={{ width: "100%" }}>
               Login with Google
