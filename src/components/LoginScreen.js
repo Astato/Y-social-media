@@ -390,7 +390,7 @@ const LoginScreen = ({ setUser }) => {
 
         <div id="login-container">
           <h2>Join Today.</h2>
-          <a href={BASEURL + "/social/oauth2/redirect/google"}>
+          <a href={BASEURL + "/social/oauth2/redirect/google"} target="_blank">
             <button className="white-button" style={{ width: "100%" }}>
               Login with Google
             </button>
