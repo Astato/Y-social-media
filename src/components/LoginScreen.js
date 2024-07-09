@@ -272,7 +272,7 @@ const LoginScreen = ({ setUser, user }) => {
   const handleGoogleLogin = (e) => {
     e.preventDefault();
     const googleLoginWindow = window.open(
-      "https://bing.com",
+      "/social/oauth2/redirect/google",
       "_blank",
       "width=300, height=400, position=absolute, left=50, top=50"
     );
