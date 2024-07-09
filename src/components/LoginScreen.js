@@ -30,7 +30,7 @@ async function createUser(email, name, password, birthDate, username) {
   }
 }
 
-const LoginScreen = ({ setUser }) => {
+const LoginScreen = ({ setUser, user }) => {
   const [signup, setSignup] = useState(false);
   const [validCreedentials, setValidCreedentials] = useState(false);
   const [username, setUsername] = useState("@");
@@ -45,6 +45,7 @@ const LoginScreen = ({ setUser }) => {
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [emailToRecover, setEmailToRecover] = useState("");
   const [sendingEmail, setSendingEmail] = useState(false);
+  const [isGoogleLogin, setIsGoogleLogin] = useState(false);
   const [emailRecoverCodeError, setEmailRecoverCodeError] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState({
     password: false,
@@ -268,6 +269,20 @@ const LoginScreen = ({ setUser }) => {
     }
   };
 
+  const handleGoogleLogin = (e) => {
+    e.preventDefault();
+    const googleLoginWindow = window.open(
+      "https://bing.com",
+      "_blank",
+      "width=300, height=400, position=absolute, left=50, top=50"
+    );
+    googleLoginWindow.focus();
+    if (user) {
+      googleLoginWindow.close();
+      window.location.reload();
+    }
+  };
+
   useEffect(() => {
     if (code.length === 6) {
       checkCodeValidity(code);
@@ -303,6 +318,8 @@ const LoginScreen = ({ setUser }) => {
       setErrorMessage("");
     }
   }, [dateOfBirth]);
+
+  console.log(window.location.pathname);
   ////// maube split into two componenets
 
   const [passwordChange, setPasswordChange] = useState("");
@@ -387,10 +404,15 @@ const LoginScreen = ({ setUser }) => {
       </div>
       <div id="signup-form-container">
         <h1>Happening now</h1>
-
+        {/* //"/social/oauth2/redirect/google" */}
         <div id="login-container">
           <h2>Join Today.</h2>
-          <a href={BASEURL + "/social/oauth2/redirect/google"} target="_blank">
+          <a
+            onClick={(e) => {
+              setIsGoogleLogin(true);
+              handleGoogleLogin(e);
+            }}
+          >
             <button className="white-button" style={{ width: "100%" }}>
               Login with Google
             </button>
