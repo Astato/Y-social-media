@@ -134,7 +134,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         {!user ? (
-          <LoginScreen setUser={setUser} user={user} />
+          <LoginScreen setUser={setUser} />
         ) : (
           <>
             <div style={{ maxWidth: "fit-content" }}>

@@ -30,7 +30,7 @@ async function createUser(email, name, password, birthDate, username) {
   }
 }
 
-const LoginScreen = ({ setUser, user }) => {
+const LoginScreen = ({ setUser }) => {
   const [signup, setSignup] = useState(false);
   const [validCreedentials, setValidCreedentials] = useState(false);
   const [username, setUsername] = useState("@");
@@ -45,7 +45,6 @@ const LoginScreen = ({ setUser, user }) => {
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [emailToRecover, setEmailToRecover] = useState("");
   const [sendingEmail, setSendingEmail] = useState(false);
-  const [isGoogleLogin, setIsGoogleLogin] = useState(false);
   const [emailRecoverCodeError, setEmailRecoverCodeError] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState({
     password: false,
@@ -269,26 +268,6 @@ const LoginScreen = ({ setUser, user }) => {
     }
   };
 
-  const handleGoogleLogin = (e) => {
-    e.preventDefault();
-    const googleLoginWindow = window.open(
-      BASEURL + "/social/oauth2/redirect/google",
-      "_blank",
-      "width=300, height=400,left=50, top=50"
-    );
-    setIsGoogleLogin(googleLoginWindow);
-    googleLoginWindow.focus();
-  };
-
-  useEffect(() => {
-    if (isGoogleLogin && user) {
-      const redirectURL = isGoogleLogin.location.pathname;
-      isGoogleLogin.close();
-      window.location.href(`/${redirectURL}`);
-      setIsGoogleLogin(false);
-    }
-  }, [isGoogleLogin]);
-
   useEffect(() => {
     if (code.length === 6) {
       checkCodeValidity(code);
@@ -324,9 +303,6 @@ const LoginScreen = ({ setUser, user }) => {
       setErrorMessage("");
     }
   }, [dateOfBirth]);
-
-  console.log(window.location.pathname);
-  ////// maube split into two componenets
 
   const [passwordChange, setPasswordChange] = useState("");
   const [passwordChangeConfirm, setPasswordChangeConfirm] = useState("");
@@ -410,13 +386,12 @@ const LoginScreen = ({ setUser, user }) => {
       </div>
       <div id="signup-form-container">
         <h1>Happening now</h1>
-        {/* //"/social/oauth2/redirect/google" */}
         <div id="login-container">
           <h2>Join Today.</h2>
+
           <a
-            onClick={(e) => {
-              handleGoogleLogin(e);
-            }}
+            href={BASEURL + "/social/oauth2/redirect/google"}
+            target={window.location.search.match("iframe") ? "_blank" : "_self"}
           >
             <button className="white-button" style={{ width: "100%" }}>
               Login with Google
