@@ -45,6 +45,7 @@ const LoginScreen = ({ setUser, user }) => {
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [emailToRecover, setEmailToRecover] = useState("");
   const [sendingEmail, setSendingEmail] = useState(false);
+  const [isGoogleLogin, setIsGoogleLogin] = useState(false);
   const [emailRecoverCodeError, setEmailRecoverCodeError] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState({
     password: false,
@@ -268,27 +269,25 @@ const LoginScreen = ({ setUser, user }) => {
     }
   };
 
-  let googleLoginWindow = null;
-
   const handleGoogleLogin = (e) => {
     e.preventDefault();
-    googleLoginWindow = window.open(
+    const googleLoginWindow = window.open(
       BASEURL + "/social/oauth2/redirect/google",
       "_blank",
       "width=300, height=400,left=50, top=50"
     );
+    setIsGoogleLogin(googleLoginWindow);
     googleLoginWindow.focus();
   };
 
   useEffect(() => {
-    if (googleLoginWindow && user) {
-      const redirectURL = googleLoginWindow.location.pathname;
-      googleLoginWindow.close();
-
+    if (isGoogleLogin && user) {
+      const redirectURL = isGoogleLogin.location.pathname;
+      isGoogleLogin.close();
       window.location.href(`/${redirectURL}`);
+      setIsGoogleLogin(false);
     }
-    googleLoginWindow = null;
-  }, [googleLoginWindow]);
+  }, [isGoogleLogin]);
 
   useEffect(() => {
     if (code.length === 6) {
@@ -414,7 +413,11 @@ const LoginScreen = ({ setUser, user }) => {
         {/* //"/social/oauth2/redirect/google" */}
         <div id="login-container">
           <h2>Join Today.</h2>
-          <a onClick={handleGoogleLogin}>
+          <a
+            onClick={(e) => {
+              handleGoogleLogin(e);
+            }}
+          >
             <button className="white-button" style={{ width: "100%" }}>
               Login with Google
             </button>
