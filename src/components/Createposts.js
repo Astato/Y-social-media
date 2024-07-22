@@ -185,7 +185,7 @@ const CreatePosts = ({
 
     let media = imageData || videoData;
     if (!media && selectedGif) {
-      media = { gif: selectedGif };
+      media = selectedGif;
     }
     const quoteID = quote ? quote._id : "";
 

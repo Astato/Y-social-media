@@ -89,11 +89,9 @@ const Rightsidebar = () => {
   };
 
   useEffect(() => {
-    if (!trending) {
-      getTrending()
-        .then(() => console.log("sucess"))
-        .catch((error) => console.log(error));
-    }
+    getTrending()
+      .then(() => console.log("sucess"))
+      .catch((error) => console.log(error));
   }, []);
 
   return (

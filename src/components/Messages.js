@@ -46,6 +46,8 @@ const Messages = ({ user }) => {
       if (response.data.length > 0 && response.status === 200) {
         setIsLoading(false);
         return setConversationsPreview(response.data);
+      } else if (response.status === 304 || response.status === 200) {
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);

@@ -600,6 +600,7 @@ const Profile = ({
       handleGetPosts("userPosts", thirdPartyProfile._id, 0);
     }
     if (
+      user &&
       !userPosts &&
       postsTab &&
       user.posts &&
@@ -610,6 +611,26 @@ const Profile = ({
       handleGetPosts("userPosts", false, 0);
     }
   });
+
+  if (!user || Object.keys(user).length === 0) {
+    return (
+      <div>
+        <BackIcon
+          className="close-button"
+          style={{
+            marginRight: "1rem",
+            marginTop: "3rem",
+            transform: "scale(1.5)",
+          }}
+          aria-label="back"
+          onClick={() => window.history.back()}
+        />
+        <h1>
+          We're sorry, <br /> This profile was not found or has changed
+        </h1>
+      </div>
+    );
+  }
 
   return (
     <div id="profile-container">
